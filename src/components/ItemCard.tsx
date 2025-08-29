@@ -116,7 +116,7 @@ const ItemCard = ({
           </div>
 
           {/* NGO Badge */}
-          {item.owner.role === 'ngo' && (
+          {item.owner?.role === 'ngo' && (
             <div className="absolute top-4 right-4">
               <Badge className="bg-primary text-primary-foreground">NGO</Badge>
             </div>
@@ -158,11 +158,11 @@ const ItemCard = ({
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-2">
               <img
-                src={item.owner.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face'}
-                alt={item.owner.name}
+                src={item.owner?.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face'}
+                alt={item.owner?.name || 'User'}
                 className="w-6 h-6 rounded-full"
               />
-              <span className="text-sm text-muted-foreground">{item.owner.name}</span>
+              <span className="text-sm text-muted-foreground">{item.owner?.name || 'Unknown User'}</span>
             </div>
             <div className="flex items-center space-x-1 text-muted-foreground">
               <MapPin className="h-3 w-3" />
@@ -262,7 +262,7 @@ const ItemCard = ({
         )}
 
         {/* NGO Badge */}
-        {item.owner.role === 'ngo' && (
+        {item.owner?.role === 'ngo' && (
           <div className="absolute bottom-3 left-3">
             <Badge className="bg-primary text-primary-foreground text-xs">NGO</Badge>
           </div>
@@ -316,11 +316,11 @@ const ItemCard = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <img
-              src={item.owner.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face'}
-              alt={item.owner.name}
+              src={item.owner?.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=face'}
+              alt={item.owner?.name || 'User'}
               className="w-5 h-5 rounded-full"
             />
-            <span className="text-sm text-muted-foreground">{item.owner.name}</span>
+            <span className="text-sm text-muted-foreground">{item.owner?.name || 'Unknown User'}</span>
           </div>
 
           {/* Quick Actions */}
