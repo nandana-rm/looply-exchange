@@ -70,6 +70,14 @@ const mockDonationNeeds = [
     progress: 30,
     deadline: '2024-03-01',
     priority: 'medium' as const
+  },
+  {
+    id: '3',
+    title: 'Blankets for Winter Shelter',
+    description: 'Warm blankets to help families during the cold season',
+    progress: 80,
+    deadline: '2024-04-01',
+    priority: 'low' as const
   }
 ];
 

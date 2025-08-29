@@ -21,6 +21,9 @@ interface ItemCardProps {
   onClick?: (item: Item) => void;
   variant?: 'grid' | 'list' | 'swipe';
   className?: string;
+  showLiked?: boolean;
+  showSaved?: boolean;
+  showOwnerActions?: boolean;
 }
 
 const ItemCard = ({ 
@@ -29,7 +32,10 @@ const ItemCard = ({
   onMessage, 
   onClick, 
   variant = 'grid',
-  className 
+  className,
+  showLiked = false,
+  showSaved = false,
+  showOwnerActions = false 
 }: ItemCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);

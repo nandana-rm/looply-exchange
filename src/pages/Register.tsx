@@ -62,6 +62,7 @@ const Register = () => {
         name: data.name,
         email: data.email,
         role: data.role,
+        karma: 0,
         location: {
           address: data.location,
           lat: 0, // Mock coordinates
