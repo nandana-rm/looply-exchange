@@ -14,7 +14,9 @@ export const mockProfiles: Profile[] = [
       lng: -74.0060
     },
     joinedAt: '2024-01-15T10:00:00Z',
-    isVerified: true
+    isVerified: true,
+    karma: 85,
+    bio: 'Love finding unique vintage items and connecting with my community!'
   },
   {
     id: '2',
@@ -28,7 +30,9 @@ export const mockProfiles: Profile[] = [
       lng: -122.4194
     },
     joinedAt: '2024-01-10T09:00:00Z',
-    isVerified: true
+    isVerified: true,
+    karma: 156,
+    bio: 'Environmental NGO focused on sustainable living and community support.'
   },
   {
     id: '3',
@@ -42,7 +46,9 @@ export const mockProfiles: Profile[] = [
       lng: -118.2437
     },
     joinedAt: '2024-02-01T14:30:00Z',
-    isVerified: false
+    isVerified: false,
+    karma: 23,
+    bio: 'Teacher passionate about books and educational resources.'
   }
 ];
 

@@ -7,8 +7,15 @@ import { Profile, Item, SearchFilters, ItemMode, ItemCondition } from '@/types';
 interface AuthState {
   user: Profile | null;
   isAuthenticated: boolean;
+  likedItems: string[];
+  savedItems: string[];
   login: (user: Profile) => void;
   logout: () => void;
+  updateUser: (updates: Partial<Profile>) => void;
+  addLikedItem: (itemId: string) => void;
+  removeLikedItem: (itemId: string) => void;
+  addSavedItem: (itemId: string) => void;
+  removeSavedItem: (itemId: string) => void;
 }
 
 interface FiltersState {
@@ -38,21 +45,56 @@ const defaultFilters: SearchFilters = {
 // Auth Store
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
       isAuthenticated: false,
+      likedItems: [],
+      savedItems: [],
       login: (user) => {
         localStorage.setItem('currentUser', JSON.stringify(user));
         set({ user, isAuthenticated: true });
       },
       logout: () => {
         localStorage.removeItem('currentUser');
-        set({ user: null, isAuthenticated: false });
+        set({ user: null, isAuthenticated: false, likedItems: [], savedItems: [] });
+      },
+      updateUser: (updates) => {
+        const currentUser = get().user;
+        if (currentUser) {
+          const updatedUser = { ...currentUser, ...updates };
+          localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+          set({ user: updatedUser });
+        }
+      },
+      addLikedItem: (itemId) => {
+        set((state) => ({
+          likedItems: [...state.likedItems, itemId]
+        }));
+      },
+      removeLikedItem: (itemId) => {
+        set((state) => ({
+          likedItems: state.likedItems.filter(id => id !== itemId)
+        }));
+      },
+      addSavedItem: (itemId) => {
+        set((state) => ({
+          savedItems: [...state.savedItems, itemId]
+        }));
+      },
+      removeSavedItem: (itemId) => {
+        set((state) => ({
+          savedItems: state.savedItems.filter(id => id !== itemId)
+        }));
       },
     }),
     {
       name: 'looply-auth',
-      partialize: (state) => ({ user: state.user, isAuthenticated: state.isAuthenticated }),
+      partialize: (state) => ({ 
+        user: state.user, 
+        isAuthenticated: state.isAuthenticated,
+        likedItems: state.likedItems,
+        savedItems: state.savedItems
+      }),
     }
   )
 );

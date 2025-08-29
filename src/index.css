@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Looply Design System - Exact color specifications */
+/* Looply Design System - Exact color specifications from requirements */
 
 @layer base {
   :root {
-    /* Looply Brand Colors - HSL converted */
-    --background: 0 0% 94.9%; /* Light Gray #F2F2F2 */
-    --background-alt: 0 0% 79.6%; /* Light Gray #CBCBCB */
-    --foreground: 154 53% 19.2%; /* Deep Green #174D38 */
+    /* Exact Looply Brand Colors */
+    --background: 0 0% 95%; /* White #F2F2F2 */
+    --background-alt: 0 0% 80%; /* Light Gray #CBCBCB */
+    --foreground: 154 53% 19%; /* Deep Green #174D38 */
 
     --card: 0 0% 100%; /* White */
     --card-foreground: 154 53% 19.2%;
@@ -18,13 +18,13 @@
     --popover-foreground: 154 53% 19.2%;
 
     /* Primary: Deep Green #174D38 */
-    --primary: 154 53% 19.2%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 154 53% 19%;
+    --primary-foreground: 0 0% 100%;
     --primary-glow: 154 53% 35%;
 
-    /* Accent: Rich Red #4D1717 */
+    /* Accent/Important: Rich Red #4D1717 */
     --accent: 0 60% 20%;
-    --accent-foreground: 0 0% 98%;
+    --accent-foreground: 0 0% 100%;
     --accent-glow: 0 60% 35%;
 
     --secondary: 0 0% 79.6%;

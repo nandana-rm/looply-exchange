@@ -19,6 +19,8 @@ export interface Profile {
   };
   joinedAt: string;
   isVerified: boolean;
+  karma: number;
+  bio?: string;
 }
 
 export interface Item {
@@ -128,4 +130,52 @@ export interface AppState {
   filters: SearchFilters;
   isLoading: boolean;
   error: string | null;
+}
+
+export interface DonationNeed {
+  id: string;
+  ngoId: string;
+  ngo: Profile;
+  title: string;
+  description: string;
+  tags: string[];
+  priority: 'high' | 'medium' | 'low';
+  deadline?: string;
+  fulfilled: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ForumPost {
+  id: string;
+  authorId: string;
+  author: Profile;
+  communityId: string;
+  title: string;
+  content: string;
+  tags: string[];
+  likesCount: number;
+  repliesCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ForumReply {
+  id: string;
+  postId: string;
+  authorId: string;
+  author: Profile;
+  content: string;
+  likesCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Community {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  memberCount: number;
+  postsCount: number;
 }
