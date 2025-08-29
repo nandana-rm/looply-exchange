@@ -32,12 +32,15 @@ const Swipe = () => {
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {
+        e.preventDefault();
         handleSwipe('left');
       } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
         handleSwipe('right');
-      } else if (e.key === 'Escape' && currentItem) {
-        // Could open item details modal
-        console.log('Open item details:', currentItem.id);
+      } else if (e.key === 'Enter' && currentItem) {
+        e.preventDefault();
+        // Navigate to item details
+        window.location.href = `/item/${currentItem.id}`;
       }
     };
 
@@ -256,7 +259,7 @@ const Swipe = () => {
                     <ItemCard
                       item={currentItem}
                       variant="swipe"
-                      onClick={() => console.log('Open details:', currentItem.id)}
+                      onClick={() => window.location.href = `/item/${currentItem.id}`}
                       onLike={() => handleSwipe('right')}
                       onMessage={() => console.log('Message:', currentItem.id)}
                     />
@@ -321,10 +324,10 @@ const Swipe = () => {
                   <ArrowRight className="h-3 w-3" />
                   <span>Like</span>
                 </div>
-                <div className="flex items-center space-x-1">
-                  <span className="text-xs bg-muted px-2 py-1 rounded">ESC</span>
-                  <span>Details</span>
-                </div>
+                 <div className="flex items-center space-x-1">
+                   <span className="text-xs bg-muted px-2 py-1 rounded">ENTER</span>
+                   <span>Details</span>
+                 </div>
               </div>
             </div>
           </div>

@@ -4,16 +4,20 @@ import { useAuthStore } from '@/lib/store';
 
 const Index = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore();
 
   useEffect(() => {
-    // Redirect authenticated users to marketplace, others to landing
-    if (isAuthenticated) {
-      navigate('/marketplace');
+    // Redirect based on authentication and user role
+    if (isAuthenticated && user) {
+      if (user.role === 'ngo') {
+        navigate('/ngo-dashboard');
+      } else {
+        navigate('/marketplace');
+      }
     } else {
       navigate('/landing');
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, user, navigate]);
 
   return null; // This component just redirects
 };
