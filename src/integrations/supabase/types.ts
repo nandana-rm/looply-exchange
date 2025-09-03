@@ -14,7 +14,417 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      claims: {
+        Row: {
+          claimed_at: string
+          id: string
+          listing_id: string
+          ngo_id: string
+          status: Database["public"]["Enums"]["claim_status"]
+        }
+        Insert: {
+          claimed_at?: string
+          id?: string
+          listing_id: string
+          ngo_id: string
+          status?: Database["public"]["Enums"]["claim_status"]
+        }
+        Update: {
+          claimed_at?: string
+          id?: string
+          listing_id?: string
+          ngo_id?: string
+          status?: Database["public"]["Enums"]["claim_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "claims_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: false
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "claims_ngo_id_fkey"
+            columns: ["ngo_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      comments: {
+        Row: {
+          content: string
+          created_at: string
+          forum_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          forum_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          forum_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_forum_id_fkey"
+            columns: ["forum_id"]
+            isOneToOne: false
+            referencedRelation: "forums"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      donations: {
+        Row: {
+          created_at: string
+          id: string
+          item_id: string | null
+          ngo_drive_id: string
+          status: Database["public"]["Enums"]["donation_status"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_id?: string | null
+          ngo_drive_id: string
+          status?: Database["public"]["Enums"]["donation_status"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_id?: string | null
+          ngo_drive_id?: string
+          status?: Database["public"]["Enums"]["donation_status"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "donations_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "donations_ngo_drive_id_fkey"
+            columns: ["ngo_drive_id"]
+            isOneToOne: false
+            referencedRelation: "ngo_drives"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "donations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      favorites: {
+        Row: {
+          created_at: string
+          id: string
+          listing_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          listing_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          listing_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "favorites_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: false
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "favorites_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      forums: {
+        Row: {
+          community: string | null
+          content: string | null
+          created_at: string
+          id: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          community?: string | null
+          content?: string | null
+          created_at?: string
+          id?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          community?: string | null
+          content?: string | null
+          created_at?: string
+          id?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "forums_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      listings: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          images: string[] | null
+          location: string | null
+          status: Database["public"]["Enums"]["listing_status"]
+          tags: string[] | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          images?: string[] | null
+          location?: string | null
+          status?: Database["public"]["Enums"]["listing_status"]
+          tags?: string[] | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          images?: string[] | null
+          location?: string | null
+          status?: Database["public"]["Enums"]["listing_status"]
+          tags?: string[] | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "listings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      matches: {
+        Row: {
+          created_at: string
+          id: string
+          item_a_id: string
+          item_b_id: string
+          status: Database["public"]["Enums"]["match_status"]
+          user_a_id: string
+          user_b_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_a_id: string
+          item_b_id: string
+          status?: Database["public"]["Enums"]["match_status"]
+          user_a_id: string
+          user_b_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_a_id?: string
+          item_b_id?: string
+          status?: Database["public"]["Enums"]["match_status"]
+          user_a_id?: string
+          user_b_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "matches_item_a_id_fkey"
+            columns: ["item_a_id"]
+            isOneToOne: false
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matches_item_b_id_fkey"
+            columns: ["item_b_id"]
+            isOneToOne: false
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matches_user_a_id_fkey"
+            columns: ["user_a_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matches_user_b_id_fkey"
+            columns: ["user_b_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ngo_drives: {
+        Row: {
+          created_at: string
+          deadline: string | null
+          description: string | null
+          id: string
+          ngo_id: string
+          priority: Database["public"]["Enums"]["priority"]
+          progress: number
+          status: Database["public"]["Enums"]["drive_status"]
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          deadline?: string | null
+          description?: string | null
+          id?: string
+          ngo_id: string
+          priority?: Database["public"]["Enums"]["priority"]
+          progress?: number
+          status?: Database["public"]["Enums"]["drive_status"]
+          title: string
+        }
+        Update: {
+          created_at?: string
+          deadline?: string | null
+          description?: string | null
+          id?: string
+          ngo_id?: string
+          priority?: Database["public"]["Enums"]["priority"]
+          progress?: number
+          status?: Database["public"]["Enums"]["drive_status"]
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ngo_drives_ngo_id_fkey"
+            columns: ["ngo_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      swipes: {
+        Row: {
+          action: Database["public"]["Enums"]["swipe_action"]
+          created_at: string
+          id: string
+          listing_id: string
+          user_id: string
+        }
+        Insert: {
+          action: Database["public"]["Enums"]["swipe_action"]
+          created_at?: string
+          id?: string
+          listing_id: string
+          user_id: string
+        }
+        Update: {
+          action?: Database["public"]["Enums"]["swipe_action"]
+          created_at?: string
+          id?: string
+          listing_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "swipes_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: false
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "swipes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      users: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          karma_points: number
+          name: string | null
+          role: Database["public"]["Enums"]["role_enum"]
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id: string
+          karma_points?: number
+          name?: string | null
+          role?: Database["public"]["Enums"]["role_enum"]
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          karma_points?: number
+          name?: string | null
+          role?: Database["public"]["Enums"]["role_enum"]
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +433,14 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      claim_status: "claimed" | "pickup_arranged" | "received"
+      donation_status: "pledged" | "delivered" | "received"
+      drive_status: "active" | "completed"
+      listing_status: "available" | "claimed" | "inactive"
+      match_status: "pending" | "matched" | "cancelled"
+      priority: "high" | "medium" | "low"
+      role_enum: "user" | "ngo"
+      swipe_action: "like" | "reject"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +567,15 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      claim_status: ["claimed", "pickup_arranged", "received"],
+      donation_status: ["pledged", "delivered", "received"],
+      drive_status: ["active", "completed"],
+      listing_status: ["available", "claimed", "inactive"],
+      match_status: ["pending", "matched", "cancelled"],
+      priority: ["high", "medium", "low"],
+      role_enum: ["user", "ngo"],
+      swipe_action: ["like", "reject"],
+    },
   },
 } as const
