@@ -18,25 +18,12 @@ const Navigation = ({ className }: NavigationProps) => {
   const { user, isAuthenticated } = useAuthStore();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Role-based navigation
-  const getUserNavItems = () => {
-    if (user?.role === 'ngo') {
-      return [
-        { path: '/ngo-dashboard', icon: Home, label: 'Dashboard', description: 'NGO management' },
-        { path: '/forums', icon: MessageCircle, label: 'Forums', description: 'Community discussions' },
-        { path: '/settings', icon: User, label: 'Settings', description: 'Account & preferences' }
-      ];
-    }
-    return [
-      { path: '/', icon: Home, label: 'Marketplace', description: 'Browse all items' },
-      { path: '/swipe', icon: Heart, label: 'Swipe', description: 'Discover & match' },
-      { path: '/messages', icon: MessageCircle, label: 'Messages', description: 'Your conversations' },
-      { path: '/forums', icon: MessageCircle, label: 'Forums', description: 'Community discussions' },
-      { path: '/settings', icon: User, label: 'Settings', description: 'Account & preferences' }
-    ];
-  };
-
-  const navItems = getUserNavItems();
+  const navItems = [
+    { path: '/', icon: Home, label: 'Marketplace', description: 'Browse all items' },
+    { path: '/swipe', icon: Heart, label: 'Swipe', description: 'Discover & match' },
+    { path: '/messages', icon: MessageCircle, label: 'Messages', description: 'Your conversations' },
+    { path: '/profile', icon: User, label: 'Profile', description: 'Account & settings' }
+  ];
 
   const modeIcons = {
     gift: Gift,
@@ -95,14 +82,12 @@ const Navigation = ({ className }: NavigationProps) => {
         <div className="flex items-center space-x-3">
           {isAuthenticated ? (
             <>
-              {user?.role !== 'ngo' && (
-                <Link to="/add-item">
-                  <Button size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Item
-                  </Button>
-                </Link>
-              )}
+              <Link to="/add-item">
+                <Button size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Item
+                </Button>
+              </Link>
               <div className="flex items-center space-x-2">
                 <img
                   src={user?.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face'}
@@ -141,7 +126,7 @@ const Navigation = ({ className }: NavigationProps) => {
           </Link>
 
           <div className="flex items-center space-x-2">
-            {isAuthenticated && user?.role !== 'ngo' && (
+            {isAuthenticated && (
               <Link to="/add-item">
                 <Button size="sm" variant="outline">
                   <Plus className="h-4 w-4" />
