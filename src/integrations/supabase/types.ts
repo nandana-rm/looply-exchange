@@ -430,7 +430,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      adjust_karma: {
+        Args: { _delta: number; _user_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       claim_status: "claimed" | "pickup_arranged" | "received"
