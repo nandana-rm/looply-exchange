@@ -160,19 +160,7 @@ const AddItem = () => {
         description: data.description,
         images: data.images,
         tags: data.tags,
-        category: data.category,
-        condition: data.condition,
-        mode: data.mode,
-        price: data.price,
-        desiredTags: data.desiredTags,
-        desiredText: data.desiredText,
-        ownerId: user.id,
-        location: {
-          address: data.location,
-          lat: user.location.lat,
-          lng: user.location.lng
-        },
-        status: 'active'
+        location: data.location
       });
 
       toast({

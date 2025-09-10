@@ -5,7 +5,7 @@ import { Eye, EyeOff, Mail, Lock, ArrowLeft, Gift } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { authApi } from '@/lib/api';
+import { authApi, usersApi } from '@/lib/api';
 import { useAuthStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -38,13 +38,21 @@ const Login = () => {
   const onSubmit = async (data: LoginForm) => {
     setIsLoading(true);
     try {
-      const user = await authApi.login(data.email, data.password);
-      login(user);
-      toast({
-        title: 'Welcome back!',
-        description: `Good to see you again, ${user.name}!`,
-      });
-      navigate('/marketplace');
+      const { user, session } = await authApi.login(data.email, data.password);
+      
+      // Fetch user profile from database
+      const userProfile = await usersApi.getCurrentUserProfile();
+      
+      if (userProfile) {
+        login(userProfile);
+        toast({
+          title: 'Welcome back!',
+          description: `Good to see you again, ${userProfile.name}!`,
+        });
+        navigate('/marketplace');
+      } else {
+        throw new Error('User profile not found');
+      }
     } catch (error) {
       toast({
         title: 'Login failed',

@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Grid, List, SlidersHorizontal, MapPin, Zap } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
-import { Item } from '@/types';
 import { itemsApi } from '@/lib/api';
-import { useFiltersStore, useAppStore } from '@/lib/store';
+import { useFiltersStore, useAppStore, useAuthStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -16,6 +15,7 @@ const Marketplace = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const { filters } = useFiltersStore();
   const { setError } = useAppStore();
+  const { isAuthenticated } = useAuthStore();
 
   const { 
     data: items = [], 
@@ -33,17 +33,25 @@ const Marketplace = () => {
     }
   }, [error, setError]);
 
-  const handleItemClick = (item: Item) => {
-    // TODO: Navigate to item detail page or open modal
+  const handleItemClick = (item: any) => {
     console.log('Item clicked:', item.id);
+    // TODO: Navigate to item detail page
   };
 
-  const handleItemLike = (item: Item) => {
+  const handleItemLike = (item: any) => {
+    if (!isAuthenticated) {
+      console.log('Must be logged in to like items');
+      return;
+    }
     console.log('Item liked:', item.id);
-    // TODO: Implement like functionality
+    // TODO: Implement favorites functionality
   };
 
-  const handleItemMessage = (item: Item) => {
+  const handleItemMessage = (item: any) => {
+    if (!isAuthenticated) {
+      console.log('Must be logged in to message');
+      return;
+    }
     console.log('Message item owner:', item.id);
     // TODO: Navigate to chat or open message modal
   };
