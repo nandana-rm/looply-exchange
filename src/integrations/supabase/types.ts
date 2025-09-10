@@ -284,37 +284,58 @@ export type Database = {
       }
       listings: {
         Row: {
+          category: string | null
+          condition: string | null
           created_at: string
           description: string | null
+          desired_tags: string[] | null
+          desired_text: string | null
           id: string
           images: string[] | null
           location: string | null
+          mode: string | null
+          price: number | null
           status: Database["public"]["Enums"]["listing_status"]
           tags: string[] | null
           title: string
           user_id: string
+          views: number | null
         }
         Insert: {
+          category?: string | null
+          condition?: string | null
           created_at?: string
           description?: string | null
+          desired_tags?: string[] | null
+          desired_text?: string | null
           id?: string
           images?: string[] | null
           location?: string | null
+          mode?: string | null
+          price?: number | null
           status?: Database["public"]["Enums"]["listing_status"]
           tags?: string[] | null
           title: string
           user_id: string
+          views?: number | null
         }
         Update: {
+          category?: string | null
+          condition?: string | null
           created_at?: string
           description?: string | null
+          desired_tags?: string[] | null
+          desired_text?: string | null
           id?: string
           images?: string[] | null
           location?: string | null
+          mode?: string | null
+          price?: number | null
           status?: Database["public"]["Enums"]["listing_status"]
           tags?: string[] | null
           title?: string
           user_id?: string
+          views?: number | null
         }
         Relationships: [
           {

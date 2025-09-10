@@ -20,18 +20,27 @@ const Marketplace = () => {
   const { 
     data: items = [], 
     isLoading, 
-    error 
+    error,
+    refetch 
   } = useQuery({
     queryKey: ['items', filters],
     queryFn: () => itemsApi.getItems(filters),
     staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 3,
+    retryDelay: 1000,
   });
 
   useEffect(() => {
     if (error) {
+      console.error('Error loading marketplace items:', error);
       setError(error instanceof Error ? error.message : 'Failed to load items');
     }
   }, [error, setError]);
+
+  // Refetch items when navigating to marketplace
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   const handleItemClick = (item: any) => {
     console.log('Item clicked:', item.id);

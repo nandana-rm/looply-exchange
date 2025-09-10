@@ -111,6 +111,12 @@ export const itemsApi = {
     images?: string[];
     tags?: string[];
     location?: string;
+    category?: string;
+    condition?: string;
+    mode?: string;
+    price?: number;
+    desiredTags?: string[];
+    desiredText?: string;
   }): Promise<any> {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error('Not authenticated');
@@ -123,8 +129,15 @@ export const itemsApi = {
         images: itemData.images || [],
         tags: itemData.tags || [],
         location: itemData.location,
+        category: itemData.category,
+        condition: itemData.condition || 'good',
+        mode: itemData.mode || 'gift',
+        price: itemData.price,
+        desired_tags: itemData.desiredTags || [],
+        desired_text: itemData.desiredText,
         status: 'available',
-        user_id: user.id
+        user_id: user.id,
+        views: 0
       })
       .select()
       .single();

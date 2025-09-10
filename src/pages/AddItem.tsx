@@ -60,7 +60,7 @@ const AddItem = () => {
       desiredTags: [],
       desiredText: '',
       tags: [],
-      location: user?.location.address || '',
+      location: '',
       images: []
     }
   });
@@ -155,21 +155,36 @@ const AddItem = () => {
 
     setIsLoading(true);
     try {
-      await itemsApi.createItem({
+      console.log('Creating item with data:', data);
+      
+      const newItem = await itemsApi.createItem({
         title: data.title,
         description: data.description,
         images: data.images,
         tags: data.tags,
-        location: data.location
+        location: data.location,
+        category: data.category,
+        condition: data.condition,
+        mode: data.mode,
+        price: data.mode === 'sell' ? data.price : undefined,
+        desiredTags: data.mode === 'barter' ? data.desiredTags : undefined,
+        desiredText: data.mode === 'barter' ? data.desiredText : undefined
       });
+
+      console.log('Item created successfully:', newItem);
 
       toast({
         title: 'Item listed successfully!',
         description: 'Your item is now live in the marketplace.',
       });
 
-      navigate('/marketplace');
+      // Add a small delay before navigation to ensure toast is visible
+      setTimeout(() => {
+        navigate('/marketplace');
+      }, 1000);
+      
     } catch (error) {
+      console.error('Error creating item:', error);
       toast({
         title: 'Failed to list item',
         description: error instanceof Error ? error.message : 'Something went wrong',
