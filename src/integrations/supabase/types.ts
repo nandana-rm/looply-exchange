@@ -51,20 +51,6 @@ export type Database = {
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "fk_claims_listing_id_listings"
-            columns: ["listing_id"]
-            isOneToOne: false
-            referencedRelation: "listings"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_claims_ngo_id_users"
-            columns: ["ngo_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
         ]
       }
       comments: {
@@ -99,20 +85,6 @@ export type Database = {
           },
           {
             foreignKeyName: "comments_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_comments_forum_id_forums"
-            columns: ["forum_id"]
-            isOneToOne: false
-            referencedRelation: "forums"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_comments_user_id_users"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
@@ -167,27 +139,6 @@ export type Database = {
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "fk_donations_item_id_listings"
-            columns: ["item_id"]
-            isOneToOne: false
-            referencedRelation: "listings"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_donations_ngo_drive_id_ngo_drives"
-            columns: ["ngo_drive_id"]
-            isOneToOne: false
-            referencedRelation: "ngo_drives"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_donations_user_id_users"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
         ]
       }
       favorites: {
@@ -224,20 +175,6 @@ export type Database = {
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "fk_favorites_listing_id_listings"
-            columns: ["listing_id"]
-            isOneToOne: false
-            referencedRelation: "listings"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_favorites_user_id_users"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
         ]
       }
       forums: {
@@ -267,13 +204,6 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "fk_forums_user_id_users"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "forums_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
@@ -284,67 +214,39 @@ export type Database = {
       }
       listings: {
         Row: {
-          category: string | null
-          condition: string | null
           created_at: string
           description: string | null
-          desired_tags: string[] | null
-          desired_text: string | null
           id: string
           images: string[] | null
           location: string | null
-          mode: string | null
-          price: number | null
           status: Database["public"]["Enums"]["listing_status"]
           tags: string[] | null
           title: string
           user_id: string
-          views: number | null
         }
         Insert: {
-          category?: string | null
-          condition?: string | null
           created_at?: string
           description?: string | null
-          desired_tags?: string[] | null
-          desired_text?: string | null
           id?: string
           images?: string[] | null
           location?: string | null
-          mode?: string | null
-          price?: number | null
           status?: Database["public"]["Enums"]["listing_status"]
           tags?: string[] | null
           title: string
           user_id: string
-          views?: number | null
         }
         Update: {
-          category?: string | null
-          condition?: string | null
           created_at?: string
           description?: string | null
-          desired_tags?: string[] | null
-          desired_text?: string | null
           id?: string
           images?: string[] | null
           location?: string | null
-          mode?: string | null
-          price?: number | null
           status?: Database["public"]["Enums"]["listing_status"]
           tags?: string[] | null
           title?: string
           user_id?: string
-          views?: number | null
         }
         Relationships: [
-          {
-            foreignKeyName: "fk_listings_user_id_users"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "listings_user_id_fkey"
             columns: ["user_id"]
@@ -383,34 +285,6 @@ export type Database = {
           user_b_id?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "fk_matches_item_a_id_listings"
-            columns: ["item_a_id"]
-            isOneToOne: false
-            referencedRelation: "listings"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_matches_item_b_id_listings"
-            columns: ["item_b_id"]
-            isOneToOne: false
-            referencedRelation: "listings"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_matches_user_a_id_users"
-            columns: ["user_a_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_matches_user_b_id_users"
-            columns: ["user_b_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "matches_item_a_id_fkey"
             columns: ["item_a_id"]
@@ -477,13 +351,6 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "fk_ngo_drives_ngo_id_users"
-            columns: ["ngo_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "ngo_drives_ngo_id_fkey"
             columns: ["ngo_id"]
             isOneToOne: false
@@ -515,20 +382,6 @@ export type Database = {
           user_id?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "fk_swipes_listing_id_listings"
-            columns: ["listing_id"]
-            isOneToOne: false
-            referencedRelation: "listings"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_swipes_user_id_users"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "swipes_listing_id_fkey"
             columns: ["listing_id"]

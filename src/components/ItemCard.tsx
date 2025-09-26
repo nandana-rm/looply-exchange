@@ -37,12 +37,6 @@ const ItemCard = ({
   showSaved = false,
   showOwnerActions = false 
 }: ItemCardProps) => {
-  // Safety checks for malformed data
-  if (!item || !item.id) {
-    console.warn('ItemCard received invalid item data:', item);
-    return null;
-  }
-
   const [isLiked, setIsLiked] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -53,8 +47,7 @@ const ItemCard = ({
     buy: { icon: ShoppingBag, label: 'Wanted', color: 'bg-secondary text-secondary-foreground' }
   };
 
-  // Fallback for missing mode
-  const config = modeConfig[item.mode] || modeConfig.gift;
+  const config = modeConfig[item.mode];
   const ModeIcon = config.icon;
 
   const handleLike = (e: React.MouseEvent) => {

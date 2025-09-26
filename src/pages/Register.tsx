@@ -8,7 +8,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { authApi, usersApi } from '@/lib/api';
+import { authApi } from '@/lib/api';
 import { useAuthStore } from '@/lib/store';
 import { UserRole } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -58,36 +58,24 @@ const Register = () => {
   const onSubmit = async (data: RegisterForm) => {
     setIsLoading(true);
     try {
-      const { user, session } = await authApi.register({
+      const user = await authApi.register({
         name: data.name,
         email: data.email,
-        password: data.password,
         role: data.role,
-        location: data.location
+        karma: 0,
+        location: {
+          address: data.location,
+          lat: 0, // Mock coordinates
+          lng: 0
+        }
       });
       
-      // The user will be created in the database via trigger
-      // Wait a moment and then fetch the profile
-      setTimeout(async () => {
-        try {
-          const userProfile = await usersApi.getCurrentUserProfile();
-          if (userProfile) {
-            login(userProfile);
-            toast({
-              title: 'Welcome to Looply!',
-              description: 'Your account has been created successfully.',
-            });
-            navigate('/marketplace');
-          }
-        } catch (error) {
-          toast({
-            title: 'Profile fetch failed',
-            description: 'Please try logging in again.',
-            variant: 'destructive'
-          });
-        }
-      }, 1000);
-      
+      login(user);
+      toast({
+        title: 'Welcome to Looply!',
+        description: `Your account has been created successfully.`,
+      });
+      navigate('/marketplace');
     } catch (error) {
       toast({
         title: 'Registration failed',
